@@ -1,5 +1,7 @@
+# syntax=docker/dockerfile:1
 FROM debian:13.0
 
+# install app dependencies
 RUN apt update -y
 RUN apt install -y curl gnupg ca-certificates lsb-release debian-archive-keyring
 RUN curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
@@ -12,8 +14,10 @@ https://nginx.org/packages/debian `lsb_release -cs` nginx" \
 RUN apt update -y
 RUN apt install nginx -y
 
-COPY default.conf /etc/nginx/conf.d/default.conf
+# finish the init
+COPY srcs/requirements/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 443
 
+# run the image
 CMD ["nginx", "-g", "daemon off;"]
