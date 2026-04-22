@@ -8,7 +8,7 @@ RUN apt update -y && \
 RUN mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 
 # run the script to create the table
-COPY srcs/requirements/mariadb/init_mariadb.sh /docker-entrypoint-initdb.d/
+COPY init_mariadb.sh /docker-entrypoint-initdb.d/
 RUN chmod +x /docker-entrypoint-initdb.d/init_mariadb.sh
 
 RUN chown -R mysql:mysql /var/lib/mysql
