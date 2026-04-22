@@ -1,5 +1,4 @@
-# syntaxe version
-version: "3.8"
+
 # Create the instance (containers) of the images/
 services:
     mariadb:
