@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1
 FROM debian:13.0
 
 # Install app dependencies
@@ -14,17 +13,14 @@ https://nginx.org/packages/debian `lsb_release -cs` nginx" \
 RUN apt update -y
 RUN apt install nginx -y
 
-# Crée le dossier pour les certificats
+# Create the folder for the certificats
 RUN mkdir -p /etc/nginx/ssl
 
-# Copie le script et le rend exécutable
 COPY certif_ssl.sh /docker-entrypoint.d/
 RUN chmod +x /docker-entrypoint.d/certif_ssl.sh
 
-# Copie la configuration Nginx
 COPY default.conf /etc/nginx/conf.d/default.conf
 
-# Crée un entrypoint personnalisé
 RUN echo "#!/bin/sh" > /docker-entrypoint.sh && \
     echo "/docker-entrypoint.d/certif_ssl.sh" >> /docker-entrypoint.sh && \
     echo "nginx -g 'daemon off;'" >> /docker-entrypoint.sh && \

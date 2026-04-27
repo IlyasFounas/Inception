@@ -3,7 +3,9 @@ set -e
 
 echo "=== Initializing MariaDB ==="
 
-# Les variables sont automatiquement chargées depuis l'environnement
+# Delete the test user / db for a better security
+# Create the database for wordpress
+# Create the mysql user to configure the database
 mysql -u root <<EOF
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
 DELETE FROM mysql.user WHERE User='';
