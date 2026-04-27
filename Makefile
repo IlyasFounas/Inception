@@ -19,7 +19,7 @@ fclean:
 	sudo rm -rf /home/ifounas/data/mariadb
 	sudo rm -rf /home/ifounas/data/wordpress
 
-rebuild:
+re:
 	docker-compose build --no-cache --pull
 	docker-compose up -d
 

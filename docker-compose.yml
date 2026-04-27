@@ -23,7 +23,7 @@ services:
         container_name: wordpress
         networks:
             - inception_network
-        restart: always
+        restart: unless-stopped
         depends_on:
             - mariadb
         volumes:
