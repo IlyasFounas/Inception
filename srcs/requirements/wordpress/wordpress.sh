@@ -50,11 +50,9 @@ if ! wp core is-installed --allow-root --path=/var/www/html 2>/dev/null; then
         --admin_user="$WP_ADMIN_USER" \
         --admin_password="$WP_ADMIN_PASSWORD" \
         --admin_email="$WP_ADMIN_EMAIL"
-    echo "WordPress installed successfully."
-    echo "Admin URL: https://$WP_URL/wp-admin"
-    echo "Username: $WP_ADMIN_USER"
-    echo "Password: $WP_ADMIN_PASSWORD"
 fi
+
+chmod 755 /var/www/html /var/www/html/wp-admin
 
 echo "Starting PHP-FPM..."
 exec php-fpm8.2 -F

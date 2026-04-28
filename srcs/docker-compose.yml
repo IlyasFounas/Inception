@@ -19,7 +19,7 @@ services:
             context: ./requirements/wordpress
             dockerfile: Dockerfile
         ports:
-            - "9000:9000"
+            - "9000"
         container_name: wordpress
         networks:
             - inception_network
@@ -43,22 +43,24 @@ services:
             - wordpress
         environment:
             - DOMAIN_NAME=${DOMAIN_NAME}
+        volumes:
+            - wordpress_volume:/var/www/html
 
 networks:
     inception_network:
         driver: bridge
 
-# Create the volume
+# Create the volumes
 volumes:
     db:
         driver: local
-        # driver_opts:
-            # type: none
-            # device: /home/ifounas/data/mariadb
-            # o: bind
+        driver_opts:
+            type: none
+            device: /home/ifounas/data/mariadb
+            o: bind
     wordpress_volume:
         driver: local
-        # driver_opts:
-        #     type: none
-        #     device: /home/ifounas/data/wordpress
-        #     o: bind
+        driver_opts:
+            type: none
+            device: /home/ifounas/data/wordpress
+            o: bind
