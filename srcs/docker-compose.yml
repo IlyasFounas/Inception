@@ -2,21 +2,21 @@
 services:
     mariadb:
         build: 
-            context: ./srcs/requirements/mariadb
+            context: ./requirements/mariadb
             dockerfile: Dockerfile
         ports:
             - "3306:3306"
         container_name: mariadb
         networks:
             - inception_network
-        restart: always
+        restart: unless-stopped
         volumes:
             - db:/var/lib/mysql
         env_file: .env
     
     wordpress:
         build: 
-            context: ./srcs/requirements/wordpress
+            context: ./requirements/wordpress
             dockerfile: Dockerfile
         ports:
             - "9000:9000"
@@ -31,7 +31,7 @@ services:
         env_file: .env
     nginx:
         build: 
-            context: ./srcs/requirements/nginx
+            context: ./requirements/nginx
             dockerfile: Dockerfile
         ports:
             - "443:443"
@@ -52,13 +52,13 @@ networks:
 volumes:
     db:
         driver: local
-        driver_opts:
-            type: none
-            device: /home/ifounas/data/mariadb
-            o: bind
+        # driver_opts:
+            # type: none
+            # device: /home/ifounas/data/mariadb
+            # o: bind
     wordpress_volume:
         driver: local
-        driver_opts:
-            type: none
-            device: /home/ifounas/data/wordpress
-            o: bind
+        # driver_opts:
+        #     type: none
+        #     device: /home/ifounas/data/wordpress
+        #     o: bind
