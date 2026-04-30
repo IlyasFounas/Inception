@@ -6,7 +6,7 @@ up:
 	mkdir -p /home/ifounas/data/mariadb
 	mkdir -p /home/ifounas/data/wordpress
 	sudo chown -R 999:999 /home/ifounas/data/mariadb
-	sudo chmod -R 755 /home/ifounas/data/mariadb
+	sudo chmod -R 775 /home/ifounas/data/mariadb
 	sudo chown -R 33:33 /home/ifounas/data/wordpress
 	sudo chmod -R 755 /home/ifounas/data/wordpress
 	docker-compose -f $(COMPOSE_FILE) up -d --build

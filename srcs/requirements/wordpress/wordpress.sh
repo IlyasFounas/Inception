@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+# set -e
 
 # Set variables to connect to mariadb
 DB_NAME=${MYSQL_DATABASE:-wordpress}
@@ -29,6 +29,7 @@ for i in $(seq 1 30); do
     fi
 done
 
+echo "truc"
 cd /var/www/html
 
 # Create wp-config.php
