@@ -54,13 +54,13 @@ networks:
 volumes:
     db:
         driver: local
-        # driver_opts:
-        #     type: none
-        #     device: /home/ifounas/data/mariadb
-        #     o: bind
+        driver_opts:
+            type: none
+            device: /home/ifounas/data/mariadb
+            o: bind
     wordpress_volume:
         driver: local
-        # driver_opts:
-        #     type: none
-        #     device: /home/ifounas/data/wordpress
-        #     o: bind
+        driver_opts:
+            type: none
+            device: /home/ifounas/data/wordpress
+            o: bind

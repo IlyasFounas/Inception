@@ -3,8 +3,8 @@
 COMPOSE_FILE = srcs/docker-compose.yml
 
 up:
-	mkdir -p /home/ifounas/data/mariadb
-	mkdir -p /home/ifounas/data/wordpress
+	sudo mkdir -p /home/ifounas/data/mariadb
+	sudo mkdir -p /home/ifounas/data/wordpress
 	sudo chown -R 999:999 /home/ifounas/data/mariadb
 	sudo chmod -R 775 /home/ifounas/data/mariadb
 	sudo chown -R 33:33 /home/ifounas/data/wordpress
