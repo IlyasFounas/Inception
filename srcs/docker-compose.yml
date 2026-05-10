@@ -4,8 +4,6 @@ services:
         build: 
             context: ./requirements/mariadb
             dockerfile: Dockerfile
-        ports:
-            - "3306:3306"
         container_name: mariadb
         networks:
             - inception_network
@@ -18,8 +16,6 @@ services:
         build: 
             context: ./requirements/wordpress
             dockerfile: Dockerfile
-        ports:
-            - "9000:9000"
         container_name: wordpress
         networks:
             - inception_network
@@ -35,6 +31,7 @@ services:
             dockerfile: Dockerfile
         ports:
             - "443:443"
+            # - "443"
         container_name: nginx
         networks:
             - inception_network
