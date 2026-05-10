@@ -35,7 +35,10 @@ To run the application:
 
 1. Install **Docker** and **Docker Compose**.
 2. Clone the project repository.
-3. At the root of the project, create a `.env` file and fill it with the following variables:
+  ```
+  git clone https://github.com/IlyasFounas/Inception.git
+  ```
+3. At Inception/srcs/, create a `.env` file and fill it with the following variables:
   ```ini
    DOMAIN_NAME=<your_login>.42.fr
    MYSQL_DATABASE=<change_this>
@@ -50,10 +53,14 @@ To run the application:
    WP_ADMIN_PASSWORD=<change_this>
    WP_ADMIN_EMAIL=<change_this>
   ```
-   **Note:** Never write your credentials in any file other than `.env`.
+   **Note:** Never write your credentials in any file other than `.env`, and use the variables instead.
+
 4. Add the following line to `/etc/hosts`:
   ```
-   127.0.0.1 ifounas.42.fr
+  sudo nano /etc/hosts
+  ```
+  ```
+   127.0.0.1 <your_login>.42.fr
   ```
 5. Now to execute the app :
   ```
