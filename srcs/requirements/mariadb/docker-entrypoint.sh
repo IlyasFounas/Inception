@@ -1,33 +1,27 @@
 #!/bin/bash
 set -e
 
-echo "Starting MariaDB"
-mysqld --user=mysql --skip-networking &
-
-echo "Waiting for MariaDB to be ready..."
-for i in {1..30}; do
-    if mysqladmin ping --silent; then
-        echo "MariaDB is ready!"
-        break
-    fi
-    echo "Waiting... (attempt $i/30)"
-    sleep 2
-    if [ $i -eq 30 ]; then
-        echo "ERROR: MariaDB failed to start"
-        exit 1
-    fi
-done
-
-if [ ! -f /var/lib/mysql/.initialized ]; then
-    echo "Running initialization script..."
-    /init_mariadb.sh
-    touch /var/lib/mysql/.initialized
-    echo "Initialization completed."
-else
-    echo "Database already initialized."
+if [ ! -d /var/lib/mysql/mysql ]; then
+    echo "Initializing MariaDB data directory..."
+    mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 fi
 
-mysqladmin shutdown -uroot -p"${MYSQL_ROOT_PASSWORD}"
+if [ ! -f /var/lib/mysql/.initialized ]; then
+    echo "Preparing SQL initialization..."
+    
+    cat > /tmp/init.sql <<-EOSQL
+        ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+        DELETE FROM mysql.user WHERE User='';
+        DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
+        CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;
+        CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
+        GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
+        FLUSH PRIVILEGES;
+EOSQL
 
-echo "MariaDB has started"
-exec mysqld --user=mysql
+    touch /var/lib/mysql/.initialized
+    exec mysqld --user=mysql --datadir=/var/lib/mysql --init-file=/tmp/init.sql --bind-address=0.0.0.0
+else
+    echo "Database already initialized."
+    exec mysqld --user=mysql --datadir=/var/lib/mysql --bind-address=0.0.0.0
+fi

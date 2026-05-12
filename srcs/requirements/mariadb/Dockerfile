@@ -9,13 +9,8 @@ RUN apt-get update && \
 RUN mkdir -p /run/mysqld && \
     chown -R mysql:mysql /run/mysqld
 
-COPY init_mariadb.sh /init_mariadb.sh
-RUN chmod +x /init_mariadb.sh
-
 # Listen on all interfaces
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
-
-# RUN chown -R mysql:mysql /var/lib/mysql
 
 EXPOSE 3306
 
