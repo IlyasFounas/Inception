@@ -52,6 +52,10 @@ To run the application:
    WP_ADMIN_USER=<this_field_should_not_contain_admin>
    WP_ADMIN_PASSWORD=<change_this>
    WP_ADMIN_EMAIL=<change_this>
+   WP_USER_USERNAME=<change_this>
+   WP_USER_EMAIL=<change_this>
+   WP_USER_PASSWORD=<change_this>
+   WP_USER_ROLE=<change_this>
   ```
    **Note:** Never write your credentials in any file other than `.env`, and use the variables instead.
 
