@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "Starting MariaDB in background..."
+echo "Starting MariaDB"
 mysqld --user=mysql --skip-networking &
 
 echo "Waiting for MariaDB to be ready..."
@@ -24,11 +24,10 @@ if [ ! -f /var/lib/mysql/.initialized ]; then
     touch /var/lib/mysql/.initialized
     echo "Initialization completed."
 else
-    echo "Database already initialized, skipping setup."
+    echo "Database already initialized."
 fi
 
-echo "Stopping temporary MariaDB instance..."
 mysqladmin shutdown -uroot -p"${MYSQL_ROOT_PASSWORD}"
 
-echo "Starting MariaDB in foreground..."
+echo "MariaDB has started"
 exec mysqld --user=mysql

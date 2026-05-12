@@ -31,7 +31,6 @@ services:
             dockerfile: Dockerfile
         ports:
             - "443:443"
-            # - "443"
         container_name: nginx
         networks:
             - inception_network

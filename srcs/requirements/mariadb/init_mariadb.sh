@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "=== Init start ==="
+echo "Database Init start"
 
 # Delete the test user / db for a better security
 # Create the database for wordpress
@@ -16,4 +16,4 @@ GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-echo "=== Init finished ==="
+echo "Database Init finished"
