@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# set -e
+set -e
 
 # Set variables to connect to mariadb
 DB_NAME=${MYSQL_DATABASE:-wordpress}
@@ -20,7 +20,7 @@ WP_USER_EMAIL=${WP_USER_EMAIL:-user@example.com}
 WP_USER_PASSWORD=${WP_USER_PASSWORD:-$(openssl rand -base64 12)}
 WP_USER_ROLE=${WP_USER_ROLE:-author}
 
-echo "Waiting for MariaDB at $DB_HOST..."
+echo "Waiting for MariaDB to be fully launched"
 for i in $(seq 1 30); do
     if mysql -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" -e "SELECT 1" >/dev/null 2>&1; then
         echo "MariaDB ready."
@@ -34,7 +34,6 @@ for i in $(seq 1 30); do
     fi
 done
 
-echo "truc"
 cd /var/www/html
 
 # Create wp-config.php
@@ -49,7 +48,7 @@ fi
 
 # Configure the website
 if ! wp core is-installed --allow-root --path=/var/www/html 2>/dev/null; then
-    echo "Installing WordPress..."
+    echo "Creating users"
     wp core install --allow-root --path=/var/www/html \
         --url="https://$WP_URL" \
         --title="$WP_TITLE" \
@@ -57,11 +56,10 @@ if ! wp core is-installed --allow-root --path=/var/www/html 2>/dev/null; then
         --admin_password="$WP_ADMIN_PASSWORD" \
         --admin_email="$WP_ADMIN_EMAIL"
     
-    echo "Creating regular user: $WP_USER_USERNAME..."
     wp user create --allow-root --path=/var/www/html \
         "$WP_USER_USERNAME" "$WP_USER_EMAIL" \
         --user_pass="$WP_USER_PASSWORD" \
-        --role="$WP_USER_ROLE"
+        --role="author"
 fi
 
 chmod 755 /var/www/html /var/www/html/wp-admin

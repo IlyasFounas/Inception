@@ -13,18 +13,14 @@ https://nginx.org/packages/debian `lsb_release -cs` nginx" \
 RUN apt update -y
 RUN apt install nginx -y
 
-# Create the folder for the certificats
+# Create the folder for the certificat
 RUN mkdir -p /etc/nginx/ssl
 
-COPY certif_ssl.sh /docker-entrypoint.d/
-RUN chmod +x /docker-entrypoint.d/certif_ssl.sh
-
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY default.conf /etc/nginx/conf.d/default.conf
 
-RUN echo "#!/bin/sh" > /docker-entrypoint.sh && \
-    echo "/docker-entrypoint.d/certif_ssl.sh" >> /docker-entrypoint.sh && \
-    echo "nginx -g 'daemon off;'" >> /docker-entrypoint.sh && \
-    chmod +x /docker-entrypoint.sh
+
+RUN chmod +x /docker-entrypoint.sh
 
 EXPOSE 443
 

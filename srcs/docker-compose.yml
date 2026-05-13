@@ -43,7 +43,6 @@ services:
             WP_USER_USERNAME: ${WP_USER_USERNAME}
             WP_USER_EMAIL: ${WP_USER_EMAIL}
             WP_USER_PASSWORD: ${WP_USER_PASSWORD}
-            WP_USER_ROLE: ${WP_USER_ROLE}
     nginx:
         build: 
             context: ./requirements/nginx

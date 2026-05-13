@@ -9,9 +9,6 @@ RUN apt-get update && \
 RUN mkdir -p /run/mysqld && \
     chown -R mysql:mysql /run/mysqld
 
-# Listen on all interfaces
-RUN sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
-
 EXPOSE 3306
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh

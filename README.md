@@ -55,7 +55,6 @@ To run the application:
    WP_USER_USERNAME=<change_this>
    WP_USER_EMAIL=<change_this>
    WP_USER_PASSWORD=<change_this>
-   WP_USER_ROLE=<change_this>
   ```
    **Note:** Never write your credentials in any file other than `.env`, and use the variables instead.
 
@@ -98,3 +97,7 @@ Nowadays, it is difficult to avoid using AI for learning, understanding, or debu
 - etc.
 
 Debugging these issues can be time-consuming, so AI was a valuable tool in resolving them efficiently.
+
+## Technical choice
+
+For the base of the Dockerfile, I chose Debian 13.0 because I am more familiar with this Linux distribution. For the services, I used the latest versions, as there was no need to explore a wide range of alternatives.
